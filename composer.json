@@ -5,6 +5,7 @@
     "homepage": "https://github.com/dudusouza/PHP-Object-Boleto.git",
     "license": "MIT",
     "type": "library",
+    "version": "1.0.0",
     "autoload": {
         "psr-4": {
             "ob\\bancos\\": "lib/bancos/",
@@ -13,5 +14,6 @@
             "ob\\utils\\": "lib/utils/"
         }
     },
-    "minimum-stability": "dev"
+    "minimum-stability": "alpha",
+    "prefer-stable": true
 }
