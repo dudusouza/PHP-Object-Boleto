@@ -1,12 +1,12 @@
 {
-    "name": "dudusouza/PHP-Object-Boleto",
+    "name": "dudusouza/php-object-boleto",
     "description": "PHP Object Boleto",
     "keywords": ["PHP","Boleto","POO"],
     "homepage": "https://github.com/dudusouza/PHP-Object-Boleto.git",
     "license": "MIT",
     "type": "package",
     "package": {
-        "name": "dudusouza/PHP-Object-Boleto",
+        "name": "dudusouza/php-object-boleto",
         "version": "dev-master",
         "source": {
             "url": "git://github.com/dudusouza/PHP-Object-Boleto.git",
