@@ -14,6 +14,9 @@
             "ob\\utils\\": "lib/utils/"
         }
     },
-    "minimum-stability": "alpha",
-    "prefer-stable": true
+    "minimum-stability": "stable",
+    "prefer-stable": true,
+    "config": {
+        "preferred-install": "dist"
+    }
 }
