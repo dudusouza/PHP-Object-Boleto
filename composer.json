@@ -1,25 +1,17 @@
 {
     "name": "dudusouza/php-object-boleto",
     "description": "PHP Object Boleto",
-    "keywords": ["PHP","Boleto","POO"],
+    "keywords": ["PHP", "Boleto", "POO"],
     "homepage": "https://github.com/dudusouza/PHP-Object-Boleto.git",
     "license": "MIT",
-    "type": "package",
-    "package": {
-        "name": "dudusouza/php-object-boleto",
-        "version": "1.0.0",
-        "source": {
-            "url": "git://github.com/dudusouza/PHP-Object-Boleto.git",
-            "type": "git",
-            "reference": "master",
-            "autoload": {
-                "psr-4": {
-                    "ob\\bancos\\": "lib/bancos/",
-                    "ob\\bancos\\": "lib/core/",
-                    "ob\\bancos\\": "lib/plugins/",
-                    "ob\\bancos\\": "lib/utils/"
-                }
-            }
+    "type": "library",
+    "autoload": {
+        "psr-4": {
+            "ob\\bancos\\": "lib/bancos/",
+            "ob\\core\\": "lib/core/",
+            "ob\\plugins\\": "lib/plugins/",
+            "ob\\utils\\": "lib/utils/"
         }
-    }
+    },
+    "minimum-stability": "dev"
 }
