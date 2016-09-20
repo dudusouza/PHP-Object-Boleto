@@ -10,7 +10,7 @@ class ObLoad {
     /**
      * Registra o autoad da lib
      */
-    public function registerAutoload(){
+    public static function registerAutoload(){
         spl_autoload_register(array('ObLoad','load'));
     }
     
@@ -18,7 +18,7 @@ class ObLoad {
      * Auto load da classe
      * @param string $class
      */
-    public function load($class){
+    public static function load($class){
         $dirs = array('utils','core');
         $basedir = dirname(__FILE__).DIRECTORY_SEPARATOR;
         foreach($dirs as $dir){
