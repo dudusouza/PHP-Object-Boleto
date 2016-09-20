@@ -7,7 +7,7 @@
     "type": "package",
     "package": {
         "name": "dudusouza/php-object-boleto",
-        "version": "dev-master",
+        "version": "1.0.0",
         "source": {
             "url": "git://github.com/dudusouza/PHP-Object-Boleto.git",
             "type": "git",
