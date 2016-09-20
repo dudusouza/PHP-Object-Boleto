@@ -15,6 +15,7 @@ class Vendedor{
     public $Cnpj;
     public $Endereco;
     public $Email;
+    public $DigitoConta;
     
     
     public $parent;

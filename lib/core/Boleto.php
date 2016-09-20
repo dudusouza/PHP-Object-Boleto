@@ -41,6 +41,7 @@ class Boleto{
     //
     public $CodigoBarras;
     public $LinhaDigitavel;
+    public $DigitoNossoNumero;
     
     /**
       * Configura os dados dos clientes a partir de um array

@@ -2,32 +2,32 @@
 
 class OB{
     
-    /*
-        @var object $Vendedor
+    /**
+        @var Vendedor $Vendedor
         Dados do cedente (banco ou quem vai receber)
      */
     public $Vendedor;    
     
-    /*
-        @var object $Cliente
+    /**
+        @var Cliente $Cliente
         Dados do Sacado (cliente. quem pagará a conta)
      */
     public $Cliente;
     
-    /*
-        @var object $Boleto
+    /**
+        @var Boleto $Boleto
         Dados de configurações do banco, layout, etc.
      */
     public $Boleto;
     
-    /*
-        @var object $Template
+    /**
+        @var Template $Template
         Dados de configurações dos templates
      */
     public $Template;
     
-    /*
-        @var object $Banco
+    /**
+        @var Banco $Banco
         Dados de configuração do Layout para o banco escolhido
      */
     public $Banco;
