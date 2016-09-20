@@ -1,5 +1,5 @@
 <?php
-
+namespace ob\plugins;
 class PdfPlugin{
     
     public function __construct(&$object){

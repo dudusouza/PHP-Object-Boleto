@@ -1,4 +1,5 @@
 <?php
+namespace ob\bancos;
 /**
 -----------------------
     COPYRIGHT
@@ -20,7 +21,7 @@
     
     
   */
-class Bancoob extends Banco{
+class Bancoob extends \ob\core\Banco{
     public $Codigo = '756';
     public $Nome = 'Bancoob';
     //public $Css;
@@ -51,7 +52,7 @@ class Bancoob extends Banco{
             
     */
     public $tamanhos = array(
-        #Campos comuns a todos os bancos
+        #Campos comuns a todos os \ob\core\Bancos
         'Banco'             => 3,  //identificação do banco
         'Moeda'             => 1,  //Código da moeda: real=9
         'DV'                => 1,  //Dígito verificador geral da linha digitável
@@ -78,15 +79,15 @@ class Bancoob extends Banco{
     /**
       * particularidade() Faz em tempo de execução mudanças que sejam imprescindíveis
       * para a geração correta do código de barras
-      * Particularmente para o Banrisul, ele acrescenta ao array OB::$Data, que
+      * Particularmente para o Banrisul, ele acrescenta ao array \ob\core\OB::$Data, que
       * guarda as variáveis que geram o código de barras, uma nova variável
       * $DuploDigito, específica desse banco
       *
       * @version 0.1 28/05/2011 Initial
       */
     public function particularidade($object){
-        $object->Data['NumParcela'] = OB::zeros($object->Boleto->NumParcela, 3);
+        $object->Data['NumParcela'] = \ob\core\OB::zeros($object->Boleto->NumParcela, 3);
         $object->Data['AnoEmissao'] = date('y');
-        $object->Boleto->NossoNumero = Math::Mod11($object->Boleto->NossoNumero, 0, 0, true);
+        $object->Boleto->NossoNumero = \ob\utils\Math::Mod11($object->Boleto->NossoNumero, 0, 0, true);
     }
 }

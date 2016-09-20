@@ -1,4 +1,6 @@
 <?php
+namespace ob\utils;
+
 /*
     Class Math
     Essa classe tem o objetivo de concentrar funções matemáticas usadas

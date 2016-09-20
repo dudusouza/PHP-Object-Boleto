@@ -1,4 +1,5 @@
 <?php
+namespace ob\core;
     //$ob->plugin('Pdf')->save('/public/files/filename.pdf');
             
 class Plugin{

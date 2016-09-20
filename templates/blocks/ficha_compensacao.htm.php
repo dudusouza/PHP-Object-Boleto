@@ -5,8 +5,8 @@
             <div id="ficha_compensacao">
                 <!--  cabecalho  -->
                 <div class="cabecalho">
-                    <div class="banco_logo "><img src="<?php echo OB::url('/public/images/' . $OB->Banco->Image);?>" /></div>
-                    <div class="banco_codigo "><?php echo Math::Mod11($OB->Banco->Codigo, 0, 0, true)?></div>
+                    <div class="banco_logo "><img src="<?php echo ob\core\OB::url('/public/images/' . $OB->Banco->Image);?>" /></div>
+                    <div class="banco_codigo "><?php echo \ob\utils\Math::Mod11($OB->Banco->Codigo, 0, 0, true)?></div>
                     <div class="linha_digitavel  last"><?php echo $OB->linhaDigitavel();?></div>
                 </div>
                 
@@ -159,7 +159,7 @@
                     <div>
                         <label>Sacador/Avalista</label>
                         <?php
-                           echo Barcode::getHtml($OB->geraCodigo());
+                           echo \ob\utils\Barcode::getHtml($OB->geraCodigo());
                         ?>
                     </div>
                     <div class="">

@@ -2,7 +2,7 @@
     header('Content-type: text/html; charset=utf-8');
     include '../OB_init.php';    
 
-    $ob = new OB('070');
+    $ob = new \ob\core\OB('070');
     
     //*
     $ob->Vendedor
@@ -26,7 +26,7 @@
     //Envia variáveis para ser usada nos templates
     $ob->Template
             //Define o título da página
-            ->setTitle('PHP->OB ObjectBoleto')
+            ->setTitle('PHP->\ob\core\OB ObjectBoleto')
             //Define o template que será usado
             ->setTemplate('html5')
         ;

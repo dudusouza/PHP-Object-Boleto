@@ -1,4 +1,5 @@
 <?php
+namespace ob\utils;
 
 class String{
     

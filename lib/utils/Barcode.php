@@ -1,4 +1,6 @@
 <?php
+namespace ob\utils;
+
 /*
     Class Barcode
     Essa classe tem o objetivo de fazer a geração de códigos de barra
@@ -137,7 +139,7 @@ class Barcode{
       */
     public static function getHtml($code){
         //return '<img src="' . OB::url('barcode/' . $code) . '" />';
-        return '<img src="' . OB::url('lib/utils/Barcode.php') . '?n=' . $code . '" />';
+        return '<img src="' . \ob\core\OB::url('lib/utils/Barcode.php') . '?n=' . $code . '" />';
     }
     
     /**

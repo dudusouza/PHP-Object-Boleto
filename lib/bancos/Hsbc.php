@@ -1,4 +1,5 @@
 <?php
+namespace ob\bancos;
 /**
 -----------------------
     COPYRIGHT
@@ -20,7 +21,7 @@
     
     
   */
-class Hsbc extends Banco{
+class Hsbc extends \ob\core\Banco{
     public $Codigo = '399';
     public $Nome = 'Hsbc';
     //public $Css;
@@ -59,7 +60,7 @@ class Hsbc extends Banco{
           )                                                        
     */
     public $tamanhos = array(
-        #Campos comuns a todos os bancos
+        #Campos comuns a todos os \ob\core\Bancos
         'Banco'             => 3,  //identificação do banco
         'Moeda'             => 1,  //Código da moeda: real=9
         'DV'                => 1,  //Dígito verificador geral da linha digitável
@@ -118,7 +119,7 @@ class Hsbc extends Banco{
             $object->Data['DataVencimentoCalendarioJuliano'] = $this->julianDays($object->Boleto->Vencimento);
         }
         $object->Data['NossoNumero'] = $this->geraCodigoDocumento($object->Data);
-        $object->Boleto->NossoNumero = Math::Mod11($object->Boleto->NossoNumero, 0, 0, true);        
+        $object->Boleto->NossoNumero = \ob\utils\Math::Mod11($object->Boleto->NossoNumero, 0, 0, true);        
     }
     
     /**
@@ -128,13 +129,13 @@ class Hsbc extends Banco{
       */
     public function geraCodigoDocumento($dados){
         #dv1 é o Mod11 do NossoNumero
-        $dv1 = Math::Mod11($dados['NossoNumero']);
+        $dv1 = \ob\utils\Math::Mod11($dados['NossoNumero']);
         
         #Concatena o NossoNumero a dv1
         $codigo = (int) $dados['NossoNumero'] . $dv1;
 
         #Calcula a data de vencimento no formato dmy, em barras e com o ano com 2 digitos
-        $data = OB::fatorVencimentoParaData($dados['FatorVencimento'], 'dmy');
+        $data = \ob\core\OB::fatorVencimentoParaData($dados['FatorVencimento'], 'dmy');
         
         #Se o identificador for "4", dv3 é o Mod11 da soma do NossoNumero
         #concatenado a dv1 e dv2, a data sem barras e o código do cedente.
@@ -142,15 +143,15 @@ class Hsbc extends Banco{
         #numero concatenado e do codigo do cedente
         if($dados['Carteira'] == 'CNR'){
             $codigo .= 4;
-            $dv3 = Math::Mod11($codigo + $data + $dados['CodigoCedente']);
+            $dv3 = \ob\utils\Math::Mod11($codigo + $data + $dados['CodigoCedente']);
         }
         else{
             $codigo .= 5;
-            $dv3 = Math::Mod11($codigo + $dados['CodigoCedente']);
+            $dv3 = \ob\utils\Math::Mod11($codigo + $dados['CodigoCedente']);
         }
         
         #Retorno com 13 caracteres
-        return OB::zeros($codigo . $dv3, $this->tamanhos['NossoNumero']);
+        return \ob\core\OB::zeros($codigo . $dv3, $this->tamanhos['NossoNumero']);
     }
     
     /**
@@ -165,7 +166,7 @@ class Hsbc extends Banco{
         $dataFinal = mktime(0,0,0,$date[1],$date[0],$date[2]);
         $dataInicial = mktime(0,0,0,12,31,$date[2]-1);
     
-        return OB::zeros((int)(($dataFinal - $dataInicial)/(60*60*24)), 3) . String::right($date[2],1);
+        return \ob\core\OB::zeros((int)(($dataFinal - $dataInicial)/(60*60*24)), 3) . \ob\utils\String::right($date[2],1);
     }
 
 

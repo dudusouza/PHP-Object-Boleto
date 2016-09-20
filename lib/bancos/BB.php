@@ -1,4 +1,5 @@
 <?php
+namespace ob\bancos;
 /**
 -----------------------
     COPYRIGHT
@@ -20,14 +21,14 @@
 
 
   */
-class BB extends Banco{
+class BB extends \ob\core\Banco{
     public $Codigo = '001';
     public $Nome = 'Banco do Brasil';
     public $Css = 'bb.css';
     public $Image = 'bb.png';
 
 	public $tamanhos = array(
-        #Campos comuns a todos os bancos
+        #Campos comuns a todos os \ob\core\Bancos
         'Banco'             => 3,   //identificação do banco
         'Moeda'             => 1,   //Código da moeda: real=9
         'DV'                => 1,   //Dígito verificador geral da linha digitável
@@ -63,7 +64,7 @@ class BB extends Banco{
     public function particularidade($object){
 		switch ($object->Vendedor->Carteira) {
 			case '18-6':
-				$object->Boleto->NossoNumero = $object->Data['CodigoCedente'] . Math::Mod11($object->Data['NossoNumero'], 0, 0, true);
+				$object->Boleto->NossoNumero = $object->Data['CodigoCedente'] . \ob\utils\Math::Mod11($object->Data['NossoNumero'], 0, 0, true);
 				break;
 			case '18-6-17':
 				$this->layoutCodigoBarras = ':Banco:Moeda:FatorVencimento:Valor:CodigoCedente:NossoNumero21';
@@ -74,13 +75,13 @@ class BB extends Banco{
 				break;
 			case '18-8':
 				$this->layoutCodigoBarras = ':Banco:Moeda:FatorVencimento:Valor000000:CodigoCedente:NossoNumero:Carteira';
-				$object->Boleto->NossoNumero = $object->Data['CodigoCedente'] . Math::Mod11($object->Data['NossoNumero'], 0, 0, true);
+				$object->Boleto->NossoNumero = $object->Data['CodigoCedente'] . \ob\utils\Math::Mod11($object->Data['NossoNumero'], 0, 0, true);
 				break;
 		}
 		$object->Vendedor->Carteira = '18';
 		//Gerando o número do dígito da conta
-		$object->Data['DigitoConta'] = Math::Mod11($object->Cliente->Conta);
-		$object->Data['DigitoNossoNumero'] = Math::Mod11($object->Boleto->NossoNumero);
+		$object->Data['DigitoConta'] = \ob\utils\Math::Mod11($object->Cliente->Conta);
+		$object->Data['DigitoNossoNumero'] = \ob\utils\Math::Mod11($object->Boleto->NossoNumero);
     }
 
 	/*

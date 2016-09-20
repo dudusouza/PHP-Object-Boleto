@@ -2,7 +2,7 @@
     header('Content-type: text/html; charset=utf-8');
     include 'OB_init.php';    
 
-    $ob = new OB('004');
+    $ob = new ob\core\OB('004');
     
     //*
     $ob->Vendedor

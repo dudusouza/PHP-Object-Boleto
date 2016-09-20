@@ -1,4 +1,5 @@
 <?php
+namespace ob\core;
 /*
     Essa class vai trazer as configurações do Cedente
 */
@@ -140,7 +141,7 @@ class Vendedor{
       *          0.2 27/05/2011 Adicionada validação do CNPJ informado
       */
     public function setCnpj($value){
-        if(Validar::cnpj($value)){
+        if(\ob\utils\Validar::cnpj($value)){
             $this->Cnpj = $value;
         }
         else{
@@ -167,7 +168,7 @@ class Vendedor{
       *          0.2 27/05/2011 Adicionada validação do e-mail
       */
     public function setEmail($value){
-        if(Validar::email($value)){
+        if(\ob\utils\Validar::email($value)){
             $this->Email = $value;
         }
         else{

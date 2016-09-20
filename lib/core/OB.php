@@ -1,4 +1,5 @@
 <?php
+namespace ob\core;
 
 class OB{
     
@@ -27,6 +28,12 @@ class OB{
     public $Template;
     
     /**
+        @var Configuracao $Configuracao
+        Dados de configurações dos templates
+     */
+    public $Configuracao;
+    
+    /**
         @var Banco $Banco
         Dados de configuração do Layout para o banco escolhido
      */
@@ -47,10 +54,11 @@ class OB{
     public function __construct($codigoBanco){
         $this->loadBanco($codigoBanco);
         
-        $classes = array('Vendedor', 'Cliente', 'Boleto', 'Configuracao', 'Template');
-        foreach($classes as $class){
-            $this->$class = new $class($this);
-        }
+        $this->Vendedor = new Vendedor($this);
+        $this->Cliente = new Cliente($this);
+        $this->Boleto = new Boleto($this);
+        $this->Configuracao = new Configuracao($this);
+        $this->Template = new Template($this);
     }
     
     /**
@@ -139,13 +147,13 @@ class OB{
             $this->Banco->verificaObrigatorios($this->Data);
 
             #Insere os valores de $this->data no layout do codigo de barras
-            $cod = String::insert($this->Banco->layoutCodigoBarras, $this->Data);
+            $cod = \ob\utils\String::insert($this->Banco->layoutCodigoBarras, $this->Data);
 
             #Cálculo do dígito verificador geral do código de barras
-            $dv = Math::Mod11($cod, '1', '1');
+            $dv = \ob\utils\Math::Mod11($cod, '1', '1');
             
             #Inserindo o dígito verificador exatamente na posição 4, iniciando em 0.
-            $this->Boleto->CodigoBarras = String::putAt($cod, $dv, 4);
+            $this->Boleto->CodigoBarras = \ob\utils\String::putAt($cod, $dv, 4);
         }
         
         return $this->Boleto->CodigoBarras;
@@ -191,9 +199,9 @@ class OB{
             
             $this->Data['Vencimento'] = $this->Boleto->Vencimento;
             //Definir estes dados é repsonsabilidade das classes individuais dos bancos
-            //$this->Data['DigitoAgencia'] = Math::Mod11($this->Data['Agencia']);
-            //$this->Data['DigitoConta'] = Math::Mod11($this->Data['Conta']);
-            //$this->Data['DigitoNossoNumero'] = Math::Mod11($this->Data['NossoNumero']);
+            //$this->Data['DigitoAgencia'] = \ob\utils\Math::Mod11($this->Data['Agencia']);
+            //$this->Data['DigitoConta'] = \ob\utils\Math::Mod11($this->Data['Conta']);
+            //$this->Data['DigitoNossoNumero'] = \ob\utils\Math::Mod11($this->Data['NossoNumero']);
 
             return $this->Data;
         }
@@ -236,17 +244,17 @@ class OB{
         //Campo5 - Posições 6-19
                          .substr($codigo, 5, 14);
         
-        $dv1 = Math::Mod10(substr($linhaDigitavel, 0, 9));
-        $dv2 = Math::Mod10(substr($linhaDigitavel, 9, 10));
-        $dv3 = Math::Mod10(substr($linhaDigitavel, 19, 10));
+        $dv1 = \ob\utils\Math::Mod10(substr($linhaDigitavel, 0, 9));
+        $dv2 = \ob\utils\Math::Mod10(substr($linhaDigitavel, 9, 10));
+        $dv3 = \ob\utils\Math::Mod10(substr($linhaDigitavel, 19, 10));
 
         #Inserindo os DVs em seus lugares
-        $linhaDigitavel = String::putAt($linhaDigitavel, $dv3, 29);
-        $linhaDigitavel = String::putAt($linhaDigitavel, $dv2, 19);
-        $linhaDigitavel = String::putAt($linhaDigitavel, $dv1, 9);
+        $linhaDigitavel = \ob\utils\String::putAt($linhaDigitavel, $dv3, 29);
+        $linhaDigitavel = \ob\utils\String::putAt($linhaDigitavel, $dv2, 19);
+        $linhaDigitavel = \ob\utils\String::putAt($linhaDigitavel, $dv1, 9);
        
         #Aplicando A linha digitável gerada à sua máscara
-        $linhaDigitavel = String::applyMask($linhaDigitavel, $this->Banco->mascaraLinhaDigitavel);
+        $linhaDigitavel = \ob\utils\String::applyMask($linhaDigitavel, $this->Banco->mascaraLinhaDigitavel);
 
         return $linhaDigitavel;
     }
@@ -264,25 +272,25 @@ class OB{
         }
         
         #Aplico no layout da linha digitável os dados da variável $data
-        $linhaDigitavel = String::insert($this->Banco->layoutLinhaDigitavel, $data);
+        $linhaDigitavel = \ob\utils\String::insert($this->Banco->layoutLinhaDigitavel, $data);
 
         #Calculando o dv vindo do código de barras, que 
         #fica exatamente na posição 4, iniciando em 0
         $dv = $codigo[4];
         
         #Calculando os dígitos verificadores dos subgrupos
-        $dv1 = Math::Mod10(substr($linhaDigitavel, 0, 9));
-        $dv2 = Math::Mod10(substr($linhaDigitavel, 9, 10));
-        $dv3 = Math::Mod10(substr($linhaDigitavel, 20, 10));
+        $dv1 = \ob\utils\Math::Mod10(substr($linhaDigitavel, 0, 9));
+        $dv2 = \ob\utils\Math::Mod10(substr($linhaDigitavel, 9, 10));
+        $dv3 = \ob\utils\Math::Mod10(substr($linhaDigitavel, 20, 10));
         
         #Inserindo os DVs em seus lugares
-        $linhaDigitavel = String::putAt($linhaDigitavel, $dv1, 9);
-        $linhaDigitavel = String::putAt($linhaDigitavel, $dv2, 20);
-        $linhaDigitavel = String::putAt($linhaDigitavel, $dv3, 31);
-        $linhaDigitavel = String::putAt($linhaDigitavel, $dv, 32);
+        $linhaDigitavel = \ob\utils\String::putAt($linhaDigitavel, $dv1, 9);
+        $linhaDigitavel = \ob\utils\String::putAt($linhaDigitavel, $dv2, 20);
+        $linhaDigitavel = \ob\utils\String::putAt($linhaDigitavel, $dv3, 31);
+        $linhaDigitavel = \ob\utils\String::putAt($linhaDigitavel, $dv, 32);
        
         #Aplicando A linha digitável gerada à sua máscara
-        $linhaDigitavel = String::applyMask($linhaDigitavel, $this->Banco->mascaraLinhaDigitavel);
+        $linhaDigitavel = \ob\utils\String::applyMask($linhaDigitavel, $this->Banco->mascaraLinhaDigitavel);
         
         return $linhaDigitavel;
     }/**/
@@ -332,6 +340,6 @@ class OB{
       * @version 0.1 18/05/2011 Initial
       */
     public static function normalize(&$var, $length){
-        return String::left(self::zeros($var, $length), $length);
+        return \ob\utils\String::left(self::zeros($var, $length), $length);
     }
 }

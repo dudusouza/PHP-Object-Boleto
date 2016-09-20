@@ -1,4 +1,5 @@
 <?php
+namespace ob\utils;
 
 class Debug {
     public static function handleErrors($handler = null) {

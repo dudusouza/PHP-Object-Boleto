@@ -1,4 +1,5 @@
 <?php
+namespace ob\bancos;
 /**
 -----------------------
     COPYRIGHT
@@ -20,7 +21,7 @@
     
     
   */
-class BancoAmazonia extends Banco{
+class BancoAmazonia extends \ob\core\Banco{
     public $Codigo = '003';
     public $Nome = 'Banco da Amazônia';
     //public $Css = 'bnb.css';
@@ -38,7 +39,7 @@ class BancoAmazonia extends Banco{
         ser um número único com no máximo 16 caracteres
     */
     public $tamanhos = array(
-        #Campos comuns a todos os bancos
+        #Campos comuns a todos os \ob\core\Bancos
         'Banco'             => 3,   //identificação do banco
         'Moeda'             => 1,   //Código da moeda: real=9
         'DV'                => 1,   //Dígito verificador geral da linha digitável
@@ -70,15 +71,15 @@ class BancoAmazonia extends Banco{
       */
     public function particularidade($object){
 		//Inserindo a informação de convênio, com 4 dígitos
-		$object->Data['Convenio'] = OB::zeros($object->Vendedor->Convenio, 4);
+		$object->Data['Convenio'] = \ob\core\OB::zeros($object->Vendedor->Convenio, 4);
 		
 		//Incluindo os dados da agencia com o dígito, exigência do boleto e
 		//necessário para criar o código de barras e a linha digitável
-		$object->Data['AgComDigito'] = OB::zeros(Math::Mod11($object->Vendedor->Agencia, 0,0,true,9,''),4);
+		$object->Data['AgComDigito'] = \ob\core\OB::zeros(\ob\utils\Math::Mod11($object->Vendedor->Agencia, 0,0,true,9,''),4);
 		
 		//Formato o "Nosso Número" que é enviado pro boleto de acordo
 		//com o padrão do banco, com 16 caracteres
-		$object->Boleto->NossoNumero = OB::zeros($object->Data['NossoNumero'], 16);
+		$object->Boleto->NossoNumero = \ob\core\OB::zeros($object->Data['NossoNumero'], 16);
     }
 	
 	/**
@@ -87,10 +88,10 @@ class BancoAmazonia extends Banco{
 	  * @version 0.1 18/1/2013
 	  * 
 	  * @param array $data Array com todos os dados constantes na classe
-	  * @return string String formatada no padrão do Nosso Número do banco
+	  * @return string \ob\utils\String formatada no padrão do Nosso Número do banco
 	  */
 	//public function layoutNossoNumero($data){
-		//return String::insert(':NossoNumero:Banco:DV1:DV2', $data);
+		//return \ob\utils\String::insert(':NossoNumero:Banco:DV1:DV2', $data);
 	//}
 	
 	/**
@@ -101,11 +102,11 @@ class BancoAmazonia extends Banco{
 	  * @version 0.1 18/01/2013 Initial
 	  * 
 	  * @param array $data Array com todos os dados constantes na classe
-	  * @return string String formatada no padrão do Nosso Número do banco
+	  * @return string \ob\utils\String formatada no padrão do Nosso Número do banco
 	  */
 	public function agenciaCodigoCedente(){
 		$data = $this->parent->Data;
-		$string = OB::zeros(Math::Mod11($data['Agencia'], 0,0, true), 5) . ' / ' .  OB::zeros(Math::Mod11($data['Conta'], 0,0, true), 7);
+		$string = \ob\core\OB::zeros(\ob\utils\Math::Mod11($data['Agencia'], 0,0, true), 5) . ' / ' .  \ob\core\OB::zeros(\ob\utils\Math::Mod11($data['Conta'], 0,0, true), 7);
 		
 		return $string;
 	}

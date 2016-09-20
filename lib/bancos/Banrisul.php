@@ -1,4 +1,5 @@
 <?php
+namespace ob\bancos;
 /**
 -----------------------
     COPYRIGHT
@@ -20,7 +21,7 @@
     
     
   */
-class Banrisul extends Banco{
+class Banrisul extends \ob\core\Banco{
     public $Codigo = '041';
     public $Nome = 'Banrisul';
     //public $Css;
@@ -52,7 +53,7 @@ class Banrisul extends Banco{
         
     */
     public $tamanhos = array(
-        #Campos comuns a todos os bancos
+        #Campos comuns a todos os \ob\core\Bancos
         'Banco'             => 3,  //identificação do banco
         'Moeda'             => 1,  //Código da moeda: real=9
         'DV'                => 1,  //Dígito verificador geral da linha digitável
@@ -75,17 +76,17 @@ class Banrisul extends Banco{
     /**
       * particularidade() Faz em tempo de execução mudanças que sejam imprescindíveis
       * para a geração correta do código de barras
-      * Particularmente para o Banrisul, ele acrescenta ao array OB::$Data, que
+      * Particularmente para o Banrisul, ele acrescenta ao array \ob\core\OB::$Data, que
       * guarda as variáveis que geram o código de barras, uma nova variável
       * $DuploDigito, específica desse banco
       *
       * @version 0.1 28/05/2011 Initial
       */
     public function particularidade($object){
-        $codigo = String::insert('21:Agencia:CodigoCedente:NossoNumero041', $object->Data);
-        $dv1 = Math::Mod10($codigo);
-        $dv2 = Math::Mod11($codigo . $dv1);
-        $object->Boleto->NossoNumero = Math::Mod11($object->Boleto->NossoNumero, 0, 0, true);
+        $codigo = \ob\utils\String::insert('21:Agencia:CodigoCedente:NossoNumero041', $object->Data);
+        $dv1 = \ob\utils\Math::Mod10($codigo);
+        $dv2 = \ob\utils\Math::Mod11($codigo . $dv1);
+        $object->Boleto->NossoNumero = \ob\utils\Math::Mod11($object->Boleto->NossoNumero, 0, 0, true);
         
         return $object->Data['DuploDigito'] = self::DuploDigito($codigo);
     }
@@ -141,17 +142,17 @@ Nota: Mesmo Não Constando No Exemplo, O Número Do Título Para O Banco Sempre 
     */
     public static function DuploDigito($num){
         #DV1 
-        $dv1 = Math::Mod10($num);
+        $dv1 = \ob\utils\Math::Mod10($num);
         
         #DV2 - $num concatenado com $dv1, calculado com Mod11 com
         #multiplicador máximo 7
-        $dv2 = Math::Mod11($num . $dv1, 10, 0, false, 7);
+        $dv2 = \ob\utils\Math::Mod11($num . $dv1, 10, 0, false, 7);
         
         #Se $dv2 = 10, adiciona 1 a $dv1 e recalcula $dv2
         #concatenando agora o novo $dv1
         if($dv2 == 10){
             $dv1++;
-            $dv2 = Math::Mod11($num . $dv1, 10, 0, false, 7);
+            $dv2 = \ob\utils\Math::Mod11($num . $dv1, 10, 0, false, 7);
             
             #Se o novo valor de $dv1 for maior que 9, então
             #$dv1 passará a ser 0

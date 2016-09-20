@@ -1,4 +1,5 @@
 <?php
+namespace ob\bancos;
 /**
 -----------------------
     COPYRIGHT
@@ -20,14 +21,14 @@
 
 
   */
-class Bradesco extends Banco{
+class Bradesco extends \ob\core\Banco{
     public $Codigo = '237';
     public $Nome = 'Bradesco';
     //public $Css = 'bb.css';
     public $Image = 'bradesco.png';
 
 	public $tamanhos = array(
-        #Campos comuns a todos os bancos
+        #Campos comuns a todos os \ob\core\Bancos
         'Banco'             => 3,   //identificação do banco
         'Moeda'             => 1,   //Código da moeda: real=9
         'DV'                => 1,   //Dígito verificador geral da linha digitável
@@ -95,7 +96,7 @@ class Bradesco extends Banco{
     );
 
 	function dvNossoNumero($data) {
-		$dv =  Math::Mod11($data['Carteira'] . $data['NossoNumero'], 0, 0, false, 7);
+		$dv =  \ob\utils\Math::Mod11($data['Carteira'] . $data['NossoNumero'], 0, 0, false, 7);
 		return $data['NossoNumero'] . '-' . $dv;
 	}
 

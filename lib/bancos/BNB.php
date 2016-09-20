@@ -1,4 +1,5 @@
 <?php
+namespace ob\bancos;
 /**
 -----------------------
     COPYRIGHT
@@ -20,7 +21,7 @@
     
     
   */
-class BNB extends Banco{
+class BNB extends \ob\core\Banco{
     public $Codigo = '004';
     public $Nome = 'Banco do Nordeste';
     //public $Css = 'bnb.css';
@@ -32,7 +33,7 @@ class BNB extends Banco{
         e da linha digitável
     */
     public $tamanhos = array(
-        #Campos comuns a todos os bancos
+        #Campos comuns a todos os \ob\core\Bancos
         'Banco'             => 3,   //identificação do banco
         'Moeda'             => 1,   //Código da moeda: real=9
         'DV'                => 1,   //Dígito verificador geral da linha digitável
@@ -65,9 +66,9 @@ class BNB extends Banco{
       * @version 0.1 28/05/2011 Initial
       */
     public function particularidade($object){
-		$object->Boleto->NossoNumero = Math::Mod11($object->Boleto->NossoNumero, 0, 0, true);
-		$object->Data['DigitoConta'] = Math::Mod10($object->Data['Conta']);
-		$object->Data['DigitoNossoNumero'] = Math::Mod10($object->Data['NossoNumero']);
+		$object->Boleto->NossoNumero = \ob\utils\Math::Mod11($object->Boleto->NossoNumero, 0, 0, true);
+		$object->Data['DigitoConta'] = \ob\utils\Math::Mod10($object->Data['Conta']);
+		$object->Data['DigitoNossoNumero'] = \ob\utils\Math::Mod10($object->Data['NossoNumero']);
     }
 
 }

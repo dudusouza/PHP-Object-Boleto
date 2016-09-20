@@ -1,4 +1,5 @@
 <?php
+namespace ob\bancos;
 /**
 -----------------------
     COPYRIGHT
@@ -20,7 +21,7 @@
     
     
   */
-class Itau extends Banco{
+class Itau extends \ob\core\Banco{
     public $Codigo = '341';
     public $Nome = 'Itau';
     public $Css;
@@ -52,7 +53,7 @@ class Itau extends Banco{
         
     */
     public $tamanhos = array(
-        #Campos comuns a todos os bancos
+        #Campos comuns a todos os \ob\core\Bancos
         'Banco'             => 3,   //identificação do banco
         'Moeda'             => 1,   //Código da moeda: real=9
         'DV'                => 1,   //Dígito verificador geral da linha digitável
@@ -80,9 +81,9 @@ class Itau extends Banco{
         $digAgContaCartNNum = $object->Data['Agencia'] . $object->Data['Conta']
                             . $object->Data['Carteira'] . $object->Data['NossoNumero'];
         
-        $object->Data['DigitoAgContaCarteiraNNum'] = Math::Mod10($digAgContaCartNNum);
-        $object->Data['DigitoAgConta'] = Math::Mod10($digAgConta);
-        $object->Boleto->NossoNumero = Math::Mod11($object->Boleto->NossoNumero, 0, 0, true);
+        $object->Data['DigitoAgContaCarteiraNNum'] = \ob\utils\Math::Mod10($digAgContaCartNNum);
+        $object->Data['DigitoAgConta'] = \ob\utils\Math::Mod10($digAgConta);
+        $object->Boleto->NossoNumero = \ob\utils\Math::Mod11($object->Boleto->NossoNumero, 0, 0, true);
     }
     
 }

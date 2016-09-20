@@ -1,4 +1,6 @@
 <?php
+namespace ob\utils;
+
 //package Spaghetti.core
 class Validation {
     public static function alphanumeric($value) {

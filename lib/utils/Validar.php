@@ -1,4 +1,5 @@
 <?php
+namespace ob\utils;
 require 'Validation.php';
 class Validar extends Validation{
     

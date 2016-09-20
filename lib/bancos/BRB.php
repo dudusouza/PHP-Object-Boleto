@@ -1,4 +1,5 @@
 <?php
+namespace ob\bancos;
 /**
 -----------------------
     COPYRIGHT
@@ -20,7 +21,7 @@
     
     
   */
-class BRB extends Banco{
+class BRB extends \ob\core\Banco{
     public $Codigo = '070';
     public $Nome = 'Banco de Brasília';
     //public $Css = 'bnb.css';
@@ -69,7 +70,7 @@ class BRB extends Banco{
         
     */
     public $tamanhos = array(
-        #Campos comuns a todos os bancos
+        #Campos comuns a todos os \ob\core\Bancos
         'Banco'             => 3,   //identificação do banco
         'Moeda'             => 1,   //Código da moeda: real=9
         'DV'                => 1,   //Dígito verificador geral da linha digitável
@@ -119,10 +120,10 @@ class BRB extends Banco{
 	  * @version 0.1 18/1/2013
 	  * 
 	  * @param array $data Array com todos os dados constantes na classe
-	  * @return string String formatada no padrão do Nosso Número do banco
+	  * @return string \ob\utils\String formatada no padrão do Nosso Número do banco
 	  */
 	public function layoutNossoNumero($data){
-		return String::insert(':Categoria:NossoNumero:Banco:DV1:DV2', $data);
+		return \ob\utils\String::insert(':Categoria:NossoNumero:Banco:DV1:DV2', $data);
 	}
 	
 	/**
@@ -133,10 +134,10 @@ class BRB extends Banco{
 	  * @version 0.1 18/01/2013 Initial
 	  * 
 	  * @param array $data Array com todos os dados constantes na classe
-	  * @return string String formatada no padrão do Nosso Número do banco
+	  * @return string \ob\utils\String formatada no padrão do Nosso Número do banco
 	  */
 	public function agenciaCodigoCedente(){
-		return String::insert('000-:Agencia-:Conta', $this->parent->Data);
+		return \ob\utils\String::insert('000-:Agencia-:Conta', $this->parent->Data);
 	}
 	
 	/**
@@ -151,12 +152,12 @@ class BRB extends Banco{
 	  */
 	public function dv1($data){
 		//pr($data);
-		$string = String::insert('000:Agencia:Conta:Categoria:NossoNumero:Banco', $data);
+		$string = \ob\utils\String::insert('000:Agencia:Conta:Categoria:NossoNumero:Banco', $data);
 		//pr('00017201326131758964070');
 		//pr($string);
-		//pr(Math::Mod11($string, 0, 0, false, 7));
-		//pr(Math::Mod10($string));
-		return Math::Mod10($string);
+		//pr(\ob\utils\Math::Mod11($string, 0, 0, false, 7));
+		//pr(\ob\utils\Math::Mod10($string));
+		return \ob\utils\Math::Mod10($string);
 	}
 
 	/**
@@ -170,8 +171,8 @@ class BRB extends Banco{
 	  * @return int Inteiro contendo o dígito procurado
 	  */
 	public function dv2($data){
-		$string = String::insert('000:Agencia:Conta:Carteira:NossoNumero:Banco:DV1', $data);
+		$string = \ob\utils\String::insert('000:Agencia:Conta:Carteira:NossoNumero:Banco:DV1', $data);
 		//pr($string);
-		return Math::Mod11($string, 0, 0, false, 7);
+		return \ob\utils\Math::Mod11($string, 0, 0, false, 7);
 	}
 }

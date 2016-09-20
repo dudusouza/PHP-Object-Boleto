@@ -2,7 +2,7 @@
     header('Content-type: text/html; charset=utf-8');
     include '../OB_init.php';
 
-    $ob = new OB('237');
+    $ob = new \ob\core\OB('237');
 
     //*
     $ob->Vendedor
@@ -23,7 +23,7 @@
         ;
 
     $ob->Template
-            ->setTitle('PHP->OB ObjectBoleto')
+            ->setTitle('PHP->\ob\core\OB ObjectBoleto')
             ->setTemplate('html5')
         ;
 

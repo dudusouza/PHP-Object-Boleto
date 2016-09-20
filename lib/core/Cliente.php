@@ -1,4 +1,5 @@
 <?php
+namespace ob\core;
 
 class Cliente{
     
@@ -11,6 +12,7 @@ class Cliente{
     public $Cidade;
     public $Uf;
     public $Cep;
+    public $Conta;
     
     
     /**
@@ -62,7 +64,7 @@ class Cliente{
       *          0.2 27/05/2011 Adicionada Validação do cpf
       */
     public function setCpf($value){
-        if(Validar::cpf($value)){
+        if(\ob\utils\Validar::cpf($value)){
             $this->Cpf = $value;
         }
         else{

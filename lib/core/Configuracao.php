@@ -1,4 +1,5 @@
 <?php //18/05/2010
+namespace ob\core;
 
 class Configuracao{
     private $Instrucoes = array();

@@ -1,4 +1,5 @@
 <?php
+namespace ob\core;
 /*
     Class Templates.
     Essa class permitirá alterar os dados constantes na exibição do boleto,

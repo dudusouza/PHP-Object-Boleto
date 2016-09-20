@@ -1,4 +1,5 @@
 <?php
+namespace ob\core;
 //18/05/11
 class Boleto{
     /**
